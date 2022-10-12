@@ -1,0 +1,26 @@
+# Spring configurations
+spring:
+  main:
+    allow-bean-definition-overriding: false
+  security:
+    require-ssl: false
+  # Database
+  datasource:
+    url: jdbc:postgresql://localhost:5432/countries-docker?useSSL=false
+    username: postgres
+    password: postgres
+
+  # JPA properties
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: false
+    generate-ddl: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  # Server configuration
+  server:
+    port: 8080
+    ssl:
+      enabled: false
