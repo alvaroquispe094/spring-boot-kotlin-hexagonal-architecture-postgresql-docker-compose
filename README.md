@@ -14,7 +14,7 @@ Este proyecto esta basado en [Spring Boot](http://projects.spring.io/spring-boot
 
 ## Arquitectura
 
-[alt text](docs/hexagonal.png)
+![alt text](docs/hexagonal.png)
 
 ## Clona el repositorio
 
@@ -41,8 +41,6 @@ DB: 'countries-docker' (script adjunto en la raiz del repositorio)
 **3. Correr aplicación**
 
 + ejecutar la clase principal `src/main/kotlin/com/CountriesDockerApplication.kt` como java application
-
-+ cambiar `spring.datasource.username` y `spring.datasource.password` con tu usuario y contraseña de posgresql
 
 
 ## Pasos para correr la aplicacion usando Docker Compose
