@@ -45,12 +45,11 @@ DB: 'countries-docker' (script adjunto en la raiz del repositorio)
 
 ## Pasos para correr la aplicacion usando Docker Compose
 
-**1. Instalar Docker**
+**1. Instalación**
 
-```bash
-Descargar e instalar [Docker](https://docs.docker.com/get-docker/)
-```
++ Descargar e instalar [Docker](https://docs.docker.com/get-docker/)
 
-**2. Correr aplicación docker compose **
+
+**2. Correr aplicación docker compose**
 
 + Ubicarse en la raiz del proyecto y ejecutar ` docker-compose up
