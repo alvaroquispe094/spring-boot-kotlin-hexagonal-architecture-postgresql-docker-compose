@@ -50,6 +50,6 @@ DB: 'countries-docker' (script adjunto en la raiz del repositorio)
 + Descargar e instalar [Docker](https://docs.docker.com/get-docker/)
 
 
-**2. Correr aplicación docker compose**
+**2. Correr aplicación**
 
-+ Ubicarse en la raiz del proyecto y ejecutar ` docker-compose up
++ Ubicarse en la raiz del proyecto y ejecutar `docker-compose up
