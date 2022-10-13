@@ -48,7 +48,7 @@ DB: 'countries-docker' (script adjunto en la raiz del repositorio)
 **1. Instalar Docker**
 
 ```bash
-Descargar e instalar docker [Docker](https://docs.docker.com/get-docker/)
+Descargar e instalar [Docker](https://docs.docker.com/get-docker/)
 ```
 
 **2. Correr aplicación docker compose **
