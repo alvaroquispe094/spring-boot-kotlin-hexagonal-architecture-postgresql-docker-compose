@@ -8,6 +8,7 @@ processes = []
 [env]
   DDL_AUTO = "update"
   MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED = "false"
+  SPRING_PROFILES_ACTIVE="prod,api-docs"
   SPRING_DATASOURCE_PASSWORD = "f60dfdbd360f49e50b274063112cd07bcbfa7451247287eb"
   SPRING_DATASOURCE_URL = "jdbc:postgresql://app-docker-db.internal:5432/app_docker?options"
   SPRING_DATASOURCE_USERNAME = "postgres"
