@@ -12,7 +12,7 @@ Este proyecto esta basado en [Spring Boot](http://projects.spring.io/spring-boot
 - Docker
 - Docker Compose
 
-## Arquitectura
+## Arquitectura Hexagonal
 
 ![alt text](https://herbertograca.files.wordpress.com/2018/11/100-explicit-architecture-svg.png?w=1200)
 
