@@ -19,7 +19,7 @@ Este proyecto esta basado en [Spring Boot](http://projects.spring.io/spring-boot
 ## Clona el repositorio
 
 ```bash
-git clone https://github.com/alvaroquispe094/spring-boot-kotlin-hexagonal-architecture-postgresql-docker-compose
+git clone https://github.com/alvaroquispe094/spring-boot-kotlin-hexagonal-architecture-postgresql-docker-compose.git
 ```
 
 
@@ -45,12 +45,12 @@ DB: 'countries-docker' (script adjunto en la raiz del repositorio)
 
 ## Pasos para correr la aplicacion usando Docker Compose
 
-**1. Crear la base de datos en postgresql localmente**
+**1. Instalar Docker**
 
 ```bash
-Descargar e instalar docker [Docker]([http://projects.spring.io/spring-boot/](https://docs.docker.com/get-docker/))
+Descargar e instalar docker [Docker](https://docs.docker.com/get-docker/)
 ```
 
-**2. Modifica tu usuario y contraseña de postgresql**
+**2. Correr aplicación docker compose **
 
 + Ubicarse en la raiz del proyecto y ejecutar ` docker-compose up
