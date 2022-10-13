@@ -1,7 +1,7 @@
 # spring-boot-kotlin-hexagonal-architecture-postgresql-docker-compose
 A simple backend with kotlin and gradle, applying hexagonal architecture
 
-## Que se ha utilizado?? 
+## ¿Que se ha utilizado? 
 Este proyecto esta basado en [Spring Boot](http://projects.spring.io/spring-boot/) y usa las siguientes tecnologias :
 - Kotlin
 - Gradle
