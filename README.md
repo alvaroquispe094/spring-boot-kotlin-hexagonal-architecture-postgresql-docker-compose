@@ -52,4 +52,4 @@ DB: 'countries-docker' (script adjunto en la raiz del repositorio)
 
 **2. Correr aplicación**
 
-+ Ubicarse en la raiz del proyecto y ejecutar `docker-compose up
++ Ubicarse en la raiz del proyecto y ejecutar `docker-compose up`
