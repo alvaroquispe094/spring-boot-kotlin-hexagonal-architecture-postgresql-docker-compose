@@ -1,5 +1,7 @@
 FROM adoptopenjdk:11-jre-hotspot
 MAINTAINER 4softwaredevelopers.com
+WORKDIR /root
+COPY . .
 RUN ./gradlew build
 ADD /build/libs/*.jar app.jar
 EXPOSE 80
