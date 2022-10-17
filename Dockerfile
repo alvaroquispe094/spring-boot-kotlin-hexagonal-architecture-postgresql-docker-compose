@@ -9,4 +9,4 @@ USER gradle              # This changes the user back to the default user "gradl
 
 RUN ./gradlew build --stacktrace
 
-# Runner stage only needs JRE and JAR
+# Runner stage only needs JRE and JA
