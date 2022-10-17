@@ -1,12 +1,15 @@
-FROM adoptopenjdk:11-jre-hotspot
-MAINTAINER 4softwaredevelopers.com
+# Dockerfile focused on production use case
+# Builder stage needs JDK and gradle
+FROM adoptopenjdk:11-jre-hotspot as builder
 WORKDIR /root
 COPY . .
-RUN gradle build
-ADD /build/libs/*.jar app.jar
+RUN ./gradlew build
+
+# Runner stage only needs JRE and JAR
+FROM adoptopenjdk:11-jre-hotspot
+WORKDIR /root
 EXPOSE 80
 EXPOSE 443
 EXPOSE 8080
-ENV _JAVA_OPTIONS="-XX:MaxRAM=256m"
-#CMD java -Dspring.profiles.active=$SPRING_PROFILES_ACTIVE $_JAVA_OPTIONS -Dspring.datasource.url=$SPRING_DATASOURCE_URL -Dspring.liquibase.url=$SPRING_LIQUIBASE_URL -Dspring.datasource.username=$SPRING_DATASOURCE_USERNAME -Dspring.datasource.password=$SPRING_DATASOURCE_PASSWORD -Dspring.main.allow-bean-definition-overriding=$MANAGEMENT_METRICS_EXPORT_PROMETHEUS_ENABLED -Dspring.jpa.hibernate.ddl-auto=$DDL_AUTO -jar app.jar
-ENTRYPOINT ["java","-jar","app.jar"]
+COPY --from=builder /root/build/libs/*.jar ./app.jar
+ENTRYPOINT ["java","-jar","./app.jar"]
