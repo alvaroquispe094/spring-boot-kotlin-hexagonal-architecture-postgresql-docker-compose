@@ -3,7 +3,7 @@
 FROM adoptopenjdk:11-jre-hotspot as builder
 WORKDIR /root
 COPY . .
-RUN gradle build
+RUN gradle clean build
 
 # Runner stage only needs JRE and JAR
 FROM adoptopenjdk:11-jre-hotspot
