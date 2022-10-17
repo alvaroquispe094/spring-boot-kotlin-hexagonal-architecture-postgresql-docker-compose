@@ -4,7 +4,7 @@ FROM adoptopenjdk:11-jre-hotspot as builder
 WORKDIR /root
 COPY . .
 USER root
-RUN chown -R gradle ./
+RUN chown -R gradle /root
 USER gradle
 RUN ./gradlew build
 
