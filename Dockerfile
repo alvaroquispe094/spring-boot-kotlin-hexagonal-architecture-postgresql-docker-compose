@@ -1,5 +1,6 @@
 FROM adoptopenjdk:11-jre-hotspot
 MAINTAINER 4softwaredevelopers.com
+RUN ./gradlew build
 ADD /build/libs/*.jar app.jar
 EXPOSE 80
 EXPOSE 443
