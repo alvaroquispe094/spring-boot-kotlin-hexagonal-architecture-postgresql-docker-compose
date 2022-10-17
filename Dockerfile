@@ -1,6 +1,6 @@
 # Dockerfile focused on production use case
 # Builder stage needs JDK and gradle
-FROM adoptopenjdk:11-jre-hotspot as builder
+FROM openjdk:11 as builder
 WORKDIR /root
 COPY . .
 USER root
