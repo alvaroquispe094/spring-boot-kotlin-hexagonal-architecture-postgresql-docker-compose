@@ -17,7 +17,7 @@ RUN gradle clean build --stacktrace
 #
 # Package stage
 #
-FROM openjdk:11 as builder
+FROM openjdk:11-jre-slim as builder
 WORKDIR /root
 COPY --from=build /root/build/libs/*.jar ./app.jar
 EXPOSE 8080
