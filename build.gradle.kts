@@ -10,7 +10,7 @@ plugins {
 
 group = "com.example.countries-docker"
 version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_11
+java.sourceCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
 	mavenCentral()
@@ -27,7 +27,7 @@ dependencies {
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
-	runtimeOnly("org.postgresql:postgresql:42.2.16")
+	runtimeOnly("org.postgresql:postgresql")
 
 
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
@@ -52,7 +52,7 @@ dependencyManagement {
 tasks.withType<KotlinCompile> {
 	kotlinOptions {
 		freeCompilerArgs = listOf("-Xjsr305=strict")
-		jvmTarget = "11"
+		jvmTarget = "1.8"
 	}
 }
 

@@ -1,6 +1,7 @@
+#
 # Build stage
 #
-FROM gradle:6.9.1-jdk11-alpine as build
+FROM gradle:6.9.1-jdk8-alpine as build
 WORKDIR /root
 COPY . /root
 #USER root                # This changes default user to root
@@ -16,7 +17,7 @@ RUN gradle build
 #
 # Package stage
 #
-FROM openjdk:11-alpine-jre as builder
+FROM openjdk:8-jre-slim as builder
 WORKDIR /root
 COPY --from=build /root/build/libs/*.jar root/app.jar
 EXPOSE 80
