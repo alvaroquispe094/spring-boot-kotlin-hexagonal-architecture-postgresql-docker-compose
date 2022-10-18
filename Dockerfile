@@ -2,17 +2,17 @@
 # Build stage
 #
 FROM gradle:4.4-jdk11
-WORKDIR /root
-COPY . /root
+WORKDIR /app
+COPY --from=0 /app/myProject /app
 USER root                # This changes default user to root
-RUN chown -R gradle /root # This changes ownership of folder
+RUN chown -R gradle /app # This changes ownership of folder
 USER gradle              # This changes the user back to the default user "gradle"
-RUN gradle clean build --stacktrace
+RUN ./gradlew build --stacktrace
 #
 # Package stage
 #
 FROM openjdk:11 as builder
-ADD /home/user/root/build/libs/*.jar app.jar
+ADD /build/libs/*.jar app.jar
 EXPOSE 8080
 ENTRYPOINT ["java","-jar","app.jar"]
 
