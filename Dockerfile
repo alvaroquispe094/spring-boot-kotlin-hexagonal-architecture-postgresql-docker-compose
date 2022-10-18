@@ -1,7 +1,7 @@
 #
 # Build stage
 #
-FROM gradle:4.4-jdk11 as build
+FROM gradle:6.9.1-jdk11-hotspot as build
 WORKDIR /root
 COPY . /root
 USER root                # This changes default user to root
