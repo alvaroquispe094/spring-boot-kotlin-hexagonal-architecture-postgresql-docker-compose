@@ -1,5 +1,7 @@
 # Spring configurations
 spring:
+  profiles:
+    active: "´prod"
   main:
     allow-bean-definition-overriding: false
   security:
