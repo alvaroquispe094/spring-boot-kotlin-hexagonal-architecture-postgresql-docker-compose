@@ -16,7 +16,7 @@ RUN gradle build
 #
 # Package stage
 #
-FROM openjdk11:alpine-jre as builder
+FROM openjdk:11-alpine-jre as builder
 WORKDIR /root
 COPY --from=build /root/build/libs/*.jar root/app.jar
 EXPOSE 80
