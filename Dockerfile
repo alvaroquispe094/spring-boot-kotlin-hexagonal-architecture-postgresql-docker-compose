@@ -1,7 +1,7 @@
 #
 # Build stage
 #
-FROM gradle:4.4-jdk11 as build
+FROM gradle:4.4-jdk11
 COPY . /home/gradle/project
 USER root                # This changes default user to root
 RUN chown -R gradle /home/gradle/project # This changes ownership of folder
