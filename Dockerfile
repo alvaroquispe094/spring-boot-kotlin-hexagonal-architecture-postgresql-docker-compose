@@ -1,4 +1,3 @@
-#
 # Build stage
 #
 FROM gradle:6.9.1-jdk11-alpine as build
