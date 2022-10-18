@@ -4,7 +4,7 @@
 FROM gradle:4.4-jdk11
 WORKDIR /root
 COPY . .
-RUN ./gradlew build
+RUN gradle clean build --stacktrace
 #WORKDIR /app
 #COPY . /app/myProject /app/
 #USER root                # This changes default user to root
