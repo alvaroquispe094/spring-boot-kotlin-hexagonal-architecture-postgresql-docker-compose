@@ -19,7 +19,7 @@ RUN gradle clean build --stacktrace
 #
 FROM openjdk:11 as builder
 WORKDIR /root
-ADD /root/build/libs/*.jar ./app.jar
+COPY /root/build/libs/*.jar ./app.jar
 EXPOSE 8080
 ENTRYPOINT ["java","-jar","app.jar"]
 
