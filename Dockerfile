@@ -20,6 +20,8 @@ RUN gradle build
 FROM openjdk:11-jre-slim as builder
 WORKDIR /root
 COPY --from=build /root/build/libs/*.jar root/app.jar
+EXPOSE 80
+EXPOSE 443
 EXPOSE 8080
 
 #ENV DDL_AUTO = "update"
@@ -31,7 +33,7 @@ EXPOSE 8080
 #ENV SPRING_LIQUIBASE_URL = "jdbc:postgresql://dpg-cd610lmn6mprs1p6qvk0-a:5432/countries_docker_db"
 #ENV SPRING_OPEN_IN_VIEW = "false"
 
-CMD java -jar root/app.jar
+CMD java -Dspring.profiles.active=prod -jar root/app.jar
 #ENTRYPOINT ["java","-jar","root/app.jar"]
 
 #ENTRYPOINT ["java","-jar","app.jar"]
