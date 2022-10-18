@@ -12,7 +12,7 @@ RUN gradle clean build --stacktrace
 # Package stage
 #
 FROM openjdk:11 as builder
-ADD /build/libs/*.jar app.jar
+ADD /app/build/libs/*.jar app.jar
 EXPOSE 8080
 ENTRYPOINT ["java","-jar","app.jar"]
 
