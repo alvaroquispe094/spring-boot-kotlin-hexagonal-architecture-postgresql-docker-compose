@@ -6,7 +6,7 @@ COPY . /home/gradle/project
 USER root                # This changes default user to root
 RUN chown -R gradle /home/gradle/project # This changes ownership of folder
 USER gradle              # This changes the user back to the default user "gradle"
-RUN ./gradlew build
+RUN gradle clean build
 #
 # Package stage
 #
