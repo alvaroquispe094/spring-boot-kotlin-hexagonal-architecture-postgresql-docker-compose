@@ -21,7 +21,9 @@ FROM openjdk:11-jre-slim as builder
 WORKDIR /root
 COPY --from=build /root/build/libs/*.jar app.jar
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","app.jar"]
+
+CMD java -jar app.jar
+#ENTRYPOINT ["java","-jar","app.jar"]
 
 
 
