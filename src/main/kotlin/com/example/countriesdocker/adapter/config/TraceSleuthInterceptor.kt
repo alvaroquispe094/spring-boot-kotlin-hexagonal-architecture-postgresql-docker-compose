@@ -1,3 +1,4 @@
+/*
 package com.example.countriesdocker.adapter.config
 
 import brave.Tracer
@@ -43,3 +44,4 @@ class TraceSleuthInterceptor(private val tracer: Tracer) : AsyncHandlerIntercept
         private const val X_B3_SPAN_ID = "X-B3-SpanId"
     }
 }
+*/

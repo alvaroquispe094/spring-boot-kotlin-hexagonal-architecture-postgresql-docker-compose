@@ -1,7 +1,5 @@
 package com.example.countriesdocker.config
 
-import brave.Tracer
-import com.example.countriesdocker.adapter.config.TraceSleuthInterceptor
 import com.example.countriesdocker.adapter.persistance.exception.RestClientGenericException
 import com.example.countriesdocker.adapter.persistance.exception.TimeoutRestClientException
 import com.example.countriesdocker.config.exception.GenericException
@@ -25,7 +23,7 @@ import javax.servlet.http.HttpServletRequest
 @ControllerAdvice
 class ExceptionHandler(
         private val httpServletRequest: HttpServletRequest,
-        private val tracer: Tracer?
+        //private val tracer: Tracer?
 ) {
 
     private val log = LoggerFactory.getLogger(ExceptionHandler::class.java)
@@ -90,17 +88,17 @@ class ExceptionHandler(
             errorCode: Int,
             errorMessage: String = ex.message ?: ""): ResponseEntity<ApiErrorResponse> {
 
-        val traceId = tracer
+        /*val traceId = tracer
                 ?.currentSpan()
                 ?.context()
                 ?.traceIdString()
-                ?: TraceSleuthInterceptor.TRACE_ID_NOT_EXISTS
+                //?: TraceSleuthInterceptor.TRACE_ID_NOT_EXISTS
 
         val spanId = tracer
                 ?.currentSpan()
                 ?.context()
-                ?.spanIdString()
-                ?: TraceSleuthInterceptor.SPAN_ID_NOT_EXISTS
+                ?.spanIdString()*/
+                //?: TraceSleuthInterceptor.SPAN_ID_NOT_EXISTS
 
         val apiErrorResponse = ApiErrorResponse(
                 timestamp = LocalDateTime.now(ZoneOffset.UTC).toIsoString(),
@@ -109,7 +107,7 @@ class ExceptionHandler(
                 status = httpStatus.value(),
                 code = errorCode,
                 resource = httpServletRequest.requestURI,
-                metadata = Metadata(xB3TraceId = traceId, xB3SpanId = spanId)
+                metadata = Metadata(xB3TraceId = "sid1", xB3SpanId = "spanId")
         )
 
         return ResponseEntity(apiErrorResponse, httpStatus)

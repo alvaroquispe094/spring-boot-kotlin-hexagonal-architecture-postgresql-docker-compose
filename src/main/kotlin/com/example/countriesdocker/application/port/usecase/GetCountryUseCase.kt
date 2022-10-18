@@ -13,11 +13,11 @@ import java.util.concurrent.Executor
 @Component
 class GetCountryUseCase(
     private val countryByIdRepositoryPort: CountryByIdRepositoryPort,
-    @Qualifier("asyncExecutor") private val executor: Executor
+    //@Qualifier("asyncExecutor") private val executor: Executor
 ): FindCountryByIdInPort {
 
     override fun find(id: Long): CompletionStage<Countries> {
-        val fcountry = CompletableFuture.supplyAsync({ countryByIdRepositoryPort.findCountryById(id) }, executor)
+        val fcountry = CompletableFuture.supplyAsync { countryByIdRepositoryPort.findCountryById(id) }
         fcountry.thenAccept { log { info("Pokemon: {}", it) } }
 
         return CompletableFuture.allOf().thenApply {
