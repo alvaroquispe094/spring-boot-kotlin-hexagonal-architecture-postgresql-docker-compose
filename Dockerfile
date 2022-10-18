@@ -1,3 +1,22 @@
+#
+# Build stage
+#
+FROM gradle:4.4-jdk11
+WORKDIR /root
+COPY . .
+RUN ./gradlew build
+#
+# Package stage
+#
+FROM openjdk:11-jre-slim
+COPY --from=build /build/libs/*.jar app.jar
+EXPOSE 8080
+ENTRYPOINT ["java","-jar","app.jar"]
+
+
+
+
+
 # Dockerfile focused on production use case
 # Builder stage needs JDK and gradle
 FROM openjdk:11 as builder
