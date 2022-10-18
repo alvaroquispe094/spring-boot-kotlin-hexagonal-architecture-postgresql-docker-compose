@@ -31,7 +31,7 @@ ENV SPRING_DATASOURCE_USERNAME = "countries_docker_db_user"
 ENV SPRING_LIQUIBASE_URL = "jdbc:postgresql://dpg-cd610lmn6mprs1p6qvk0-a:5432/countries_docker_db"
 ENV SPRING_OPEN_IN_VIEW = "false"
 
-CMD java -Dspring.profiles.active=$SPRING_PROFILES_ACTIVE $_JAVA_OPTIONS -Dspring.datasource.url=$SPRING_DATASOURCE_URL -Dspring.liquibase.url=$SPRING_LIQUIBASE_URL -Dspring.datasource.username=$SPRING_DATASOURCE_USERNAME -Dspring.datasource.password=$SPRING_DATASOURCE_PASSWORD -Dspring.jpa.hibernate.ddl-auto=$DDL_AUTO -jar root/app.jar
+CMD java -Dspring.profiles.active=${SPRING_PROFILES_ACTIVE} ${_JAVA_OPTIONS} -Dspring.datasource.url=${SPRING_DATASOURCE_URL} -Dspring.liquibase.url=${SPRING_LIQUIBASE_URL} -Dspring.datasource.username=${SPRING_DATASOURCE_USERNAME} -Dspring.datasource.password=${SPRING_DATASOURCE_PASSWORD} -Dspring.jpa.hibernate.ddl-auto=${DDL_AUTO} -jar root/app.jar
 #ENTRYPOINT ["java","-jar","root/app.jar"]
 
 #ENTRYPOINT ["java","-jar","app.jar"]
