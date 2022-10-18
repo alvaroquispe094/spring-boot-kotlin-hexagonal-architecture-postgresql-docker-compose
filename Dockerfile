@@ -1,7 +1,7 @@
 #
 # Build stage
 #
-FROM gradle:4.4-jdk11
+FROM gradle:4.4-jdk11 as build
 WORKDIR /root
 COPY . /root
 USER root                # This changes default user to root
@@ -19,7 +19,7 @@ RUN gradle clean build --stacktrace
 #
 FROM openjdk:11 as builder
 WORKDIR /root
-COPY /root/build/libs/*.jar ./app.jar
+COPY --from=build /root/build/libs/*.jar ./app.jar
 EXPOSE 8080
 ENTRYPOINT ["java","-jar","app.jar"]
 
