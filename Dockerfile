@@ -1,7 +1,7 @@
 #
 # Build stage
 #
-FROM gradle:6.9.1-jre8-openj9 as build
+FROM gradle:6.9.1-jre as build
 WORKDIR /root
 COPY . /root
 #USER root                # This changes default user to root
