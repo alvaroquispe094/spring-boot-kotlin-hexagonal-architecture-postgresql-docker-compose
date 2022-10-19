@@ -4,8 +4,6 @@ spring:
     active: "´prod"
   main:
     allow-bean-definition-overriding: false
-  security:
-    require-ssl: false
   # Database
   datasource:
     url: ${DATABASE_URL}
@@ -19,9 +17,3 @@ spring:
     generate-ddl: true
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-
-  # Server configuration
-  server:
-    port: 8080
-    ssl:
-      enabled: false
