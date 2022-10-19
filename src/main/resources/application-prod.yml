@@ -1,21 +1,21 @@
 # Spring configurations
 spring:
-  autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+  profiles:
+    active: "´prod"
   main:
     allow-bean-definition-overriding: false
   security:
     require-ssl: false
   # Database
   datasource:
-    url: jdbc:postgres://postgres:16e9820c80b4da1a887ca3e1cc9e4083174ce4e0457f27f3@app-docker-db.internal:5432/app-docker-db?options
+    url: jdbc:postgresql://containers-us-west-101.railway.app:5756/railway
     username: postgres
-    password: 16e9820c80b4da1a887ca3e1cc9e4083174ce4e0457f27f3
+    password: xtzZHRl0SGsDmJJz6cEq
 
   # JPA properties
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     show-sql: false
     generate-ddl: true
     database: postgresql
