@@ -15,7 +15,7 @@ spring:
   # JPA properties
   jpa:
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
     show-sql: false
     generate-ddl: true
     database: postgresql
