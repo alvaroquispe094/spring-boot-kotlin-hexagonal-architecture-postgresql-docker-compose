@@ -9,9 +9,8 @@ spring:
   # Database
   datasource:
     url: jdbc:postgresql://containers-us-west-101.railway.app:5756/railway
-    username: postgres
-    password: xtzZHRl0SGsDmJJz6cEq
-
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
   # JPA properties
   jpa:
     hibernate:
