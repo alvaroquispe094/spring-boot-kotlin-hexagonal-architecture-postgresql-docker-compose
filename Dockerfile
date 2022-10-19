@@ -34,7 +34,7 @@ EXPOSE 8080
 #ENV SPRING_OPEN_IN_VIEW = "false"
 
 #CMD java -Dspring.profiles.active=prod -XX:MaxRAM=256m -Dspring.datasource.url=jdbc:postgresql://dpg-cd610lmn6mprs1p6qvk0-a:5432/countries_docker_db -Dspring.liquibase.url=jdbc:postgresql://dpg-cd610lmn6mprs1p6qvk0-a:5432/countries_docker_db -Dspring.datasource.username=countries_docker_db_user -Dspring.datasource.password=j2rXgUCjb5B9AzeIziXEngZj8fiOh1ka -Dspring.main.allow-bean-definition-overriding=false -Dspring.jpa.hibernate.ddl-auto=update -jar root/app.jar
-ENTRYPOINT ["java","-jar","root/app.jar"]
+ENTRYPOINT ["java","-XX:MaxRAM=256m","-jar","root/app.jar"]
 
 #ENTRYPOINT ["java","-jar","app.jar"]
 
