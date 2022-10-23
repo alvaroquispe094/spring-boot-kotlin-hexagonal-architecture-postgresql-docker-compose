@@ -5,10 +5,10 @@ import com.example.countriesdocker.application.port.`in`.CreateCountryInPort
 import com.example.countriesdocker.application.port.`in`.FindAllCountriesInPort
 import com.example.countriesdocker.application.port.`in`.FindCountryByIdInPort
 import com.example.countriesdocker.shared.CompanionLogger
-import org.springframework.data.jpa.domain.AbstractPersistable_.id
+import org.springframework.http.HttpStatus
+import org.springframework.http.ResponseEntity
 import org.springframework.validation.annotation.Validated
 import org.springframework.web.bind.annotation.*
-import java.util.concurrent.CompletionStage
 
 @RestController
 @RequestMapping("/api/v1")
@@ -19,28 +19,30 @@ class CountriesController(
 ) {
 
     @GetMapping("/countries")
-    fun findAll(): List<CountriesRest>{
-        return findAllCountriesInPort.find()
-            .let { c -> c.map { CountriesRest.from(it) } }
+    fun findAll(): ResponseEntity< List<CountriesRest> > = run {
+        logger.info("Llamada al controller api/v1/countries")
+        findAllCountriesInPort.execute()
+            .map { CountriesRest.from(it) }
+            .let { ResponseEntity.status(HttpStatus.OK).body(it) }
+            .log { info("Fin a llamada al controller /api/v1/countries/{}", it) }
     }
 
     @GetMapping("/countries/{id}")
-    fun find(@PathVariable("id") id: Long): CompletionStage<CountriesRest> = id
-        .log { info("Llamada al servicio /countries/{}", it) }
-        .let { it ->
-            findAllCountryByIdInPort.find(it)
-                .thenApply { p -> CountriesRest.from(p) }
-                .thenApply { response ->
-                    response.log { info("Respuesta servicio getPokemon future: {}", it) }
-                }
-        }
+    fun find(@PathVariable("id") id: Long): ResponseEntity<CountriesRest> = id
+        .log { info("Llamada al controller /api/v1/countries/{}", it) }
+        .let { findAllCountryByIdInPort.execute(it) }
+        .let { p -> CountriesRest.from(p) }
+        .let { ResponseEntity.status(HttpStatus.OK).body(it) }
+        .log { info("Fin a llamada al controller /api/v1/countries/{}", it) }
 
     @PostMapping("/countries")
-    fun create(@RequestBody @Validated req: CountriesRest): String = req
-        .log { info("Llamada a creacion de countries {}", it) }
+    fun create(@RequestBody @Validated req: CountriesRest): ResponseEntity<CountriesRest> = req
+        .log { info("Llamada a controller de creacion de countries") }
         .let { req.toDomain() }
-        .let { createCountryInPort.create(it) }
-        .toString()
+        .let { createCountryInPort.execute(it) }
+        .let { p -> CountriesRest.from(p) }
+        .let { ResponseEntity.status(HttpStatus.CREATED).body(it) }
+        .log { info("Fin a llamada a controller de creacion de countries {}", it) }
 
     companion object: CompanionLogger()
 

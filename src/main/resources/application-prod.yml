@@ -4,14 +4,11 @@ spring:
     active: "´prod"
   main:
     allow-bean-definition-overriding: false
-  security:
-    require-ssl: false
   # Database
   datasource:
-    url: jdbc:postgresql://containers-us-west-101.railway.app:5756/railway
-    username: postgres
-    password: xtzZHRl0SGsDmJJz6cEq
-
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
   # JPA properties
   jpa:
     hibernate:
@@ -20,9 +17,3 @@ spring:
     generate-ddl: true
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-
-  # Server configuration
-  server:
-    port: 8080
-    ssl:
-      enabled: false

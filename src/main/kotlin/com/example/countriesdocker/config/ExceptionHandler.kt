@@ -2,18 +2,17 @@ package com.example.countriesdocker.config
 
 import com.example.countriesdocker.adapter.persistance.exception.RestClientGenericException
 import com.example.countriesdocker.adapter.persistance.exception.TimeoutRestClientException
+import com.example.countriesdocker.config.exception.DaoException
 import com.example.countriesdocker.config.exception.GenericException
 import com.example.countriesdocker.config.exception.ResourceNotFoundException
 import com.example.countriesdocker.extensions.toIsoString
 import com.example.countriesdocker.extensions.toSnakeCase
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.module.kotlin.MissingKotlinParameterException
-
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.http.converter.HttpMessageNotReadableException
-import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 import java.time.LocalDateTime
@@ -46,6 +45,12 @@ class ExceptionHandler(
     fun handle(ex: ResourceNotFoundException): ResponseEntity<ApiErrorResponse> {
         log.error(HttpStatus.NOT_FOUND.reasonPhrase, ex)
         return buildResponseError(HttpStatus.NOT_FOUND, ex, ex.errorCode)
+    }
+
+    @ExceptionHandler(DaoException::class)
+    fun handle(ex: DaoException): ResponseEntity<ApiErrorResponse> {
+        log.error(HttpStatus.BAD_REQUEST.reasonPhrase, ex)
+        return buildResponseError(HttpStatus.BAD_REQUEST, ex, ex.errorCode)
     }
 
     @ExceptionHandler(RestClientGenericException::class)
