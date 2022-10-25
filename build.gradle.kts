@@ -10,7 +10,7 @@ plugins {
 
 group = "com.example.countries-docker"
 version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_1_8
+java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
 	mavenCentral()
@@ -34,14 +34,19 @@ dependencies {
 	// Swagger
 	implementation("io.springfox:springfox-boot-starter:3.0.0")
 
+	implementation("net.logstash.logback:logstash-logback-encoder:7.2")
+
 	// Testing
-	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	//testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
 	}
 
 	// Arch unit
+	testImplementation("com.tngtech.archunit:archunit:1.0.0")
+	testImplementation("com.tngtech.archunit:archunit-junit5:1.0.0")
 
+	testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
 }
 
 
@@ -54,7 +59,7 @@ dependencyManagement {
 tasks.withType<KotlinCompile> {
 	kotlinOptions {
 		freeCompilerArgs = listOf("-Xjsr305=strict")
-		jvmTarget = "1.8"
+		jvmTarget = "11"
 	}
 }
 
