@@ -1,4 +1,4 @@
-/*
+
 package com.example.countriesdocker
 
 import org.junit.jupiter.api.Test
@@ -16,4 +16,4 @@ class CountriesDomainDockerApplicationTests {
 }
 
 
-*/
+
