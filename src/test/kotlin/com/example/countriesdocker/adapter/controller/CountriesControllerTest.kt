@@ -1,10 +1,7 @@
-/*
 package com.example.countriesdocker.adapter.controller
 
 import com.example.countriesdocker.application.port.`in`.FindCountryByNameInPort
-//import com.example.countriesdocker.config.AppTestConfig
 import com.example.countriesdocker.domain.Countries
-import com.fasterxml.jackson.databind.ObjectMapper
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.mockito.ArgumentMatchers.anyString
@@ -20,21 +17,10 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 @DisplayName("CountriesController Adapter Test")
 @AutoConfigureMockMvc
 @SpringBootTest
+class CountriesControllerTest {
 
-class CountriesControllerTest (
-    @Autowired private val mockMvc: MockMvc,
-    //@Autowired private val objectMapper: ObjectMapper
-) {
-
-    */
-/*@Autowired
-    private val mockMvc: MockMvc? = null*//*
-
-
-    */
-/*@Autowired
-    private val objectMapper: ObjectMapper? = null*//*
-
+    @Autowired
+    private val mockMvc: MockMvc? = null
 
     @MockBean
     private val findCountryByNameInPort: FindCountryByNameInPort? = null
@@ -63,11 +49,11 @@ class CountriesControllerTest (
             )
 
         // expect
-        mockMvc.perform(
+        mockMvc?.perform(
             MockMvcRequestBuilders.get("/api/v1/countries/name/${countryName}")
         )
-            .andExpect(MockMvcResultMatchers.status().isOk)
+            ?.andExpect(MockMvcResultMatchers.status().isOk)
 
     }
 
-}*/
+}
