@@ -1,6 +1,7 @@
 package com.example.countriesdocker.adapter.controller
 
 import com.example.countriesdocker.application.port.`in`.FindCountryByNameInPort
+import com.example.countriesdocker.config.AppTestConfig
 import com.example.countriesdocker.domain.Countries
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -11,6 +12,7 @@ import org.springframework.boot.test.autoconfigure.web.client.AutoConfigureWebCl
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean
+import org.springframework.context.annotation.Import
 import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.get
@@ -20,6 +22,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.async
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 
 @DisplayName("CountriesController Adapter Test")
+@Import(AppTestConfig::class)
 @AutoConfigureMockMvc
 @SpringBootTest
 class CountriesControllerTest {

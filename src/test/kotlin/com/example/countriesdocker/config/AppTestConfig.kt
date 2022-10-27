@@ -1,4 +1,3 @@
-/*
 package com.example.countriesdocker.config
 
 import com.example.countriesdocker.adapter.controller.CountriesController
@@ -17,26 +16,24 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 import java.math.BigDecimal
 
 @TestConfiguration
-@ComponentScan("com.example.*")
-@EnableScheduling
+/*@ComponentScan("com.example.*")
+@EnableScheduling*/
 class AppTestConfig {
-    */
-/*@Bean
+/*
+@Bean
     fun countriesRepositoryAdapter(repository: SpringDataCountriesRepository): CountriesRepositoryAdapter {
         return CountriesRepositoryAdapter(repository)
-    }*//*
+    }
 
-    */
-/*@Bean
+@Bean
     open fun bootstrapData(repository: CountriesRepositoryAdapter): CommandLineRunner? {
         return CommandLineRunner { args: Array<String?>? ->
 
         }
-    }*//*
+    }
 
 
-    */
-/*@Bean
+@Bean
     fun countriesController(findCountryByNameInPort: FindCountryByNameInPort,
                             findAllCountriesInPort: FindAllCountriesInPort,
                             findCountryByIdInPort: FindCountryByIdInPort,
@@ -46,6 +43,7 @@ class AppTestConfig {
             findAllCountriesInPort = findAllCountriesInPort,
             findCountryByIdInPort = findCountryByIdInPort,
             createCountryInPort = createCountryInPort)
-    }*//*
+    }
+*/
 
-}*/
+}
