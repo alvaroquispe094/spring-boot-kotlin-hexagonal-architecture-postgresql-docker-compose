@@ -4,7 +4,7 @@
 FROM gradle:6.9.1-alpine as build
 WORKDIR /root
 COPY . /root
-RUN gradle build
+RUN gradle build -x test
 
 #
 # Package stage
