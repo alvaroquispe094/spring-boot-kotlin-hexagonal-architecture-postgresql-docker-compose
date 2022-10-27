@@ -10,8 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.boot.test.mock.mockito.MockBean
+import org.springframework.http.MediaType
 import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.get
+import org.springframework.test.web.servlet.post
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.asyncDispatch
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 
 @DisplayName("CountriesController Adapter Test")
@@ -48,11 +52,19 @@ class CountriesControllerTest {
                 )
             )
 
+       /* val result = mockMvc!!.get("/api/v1/countries/name/{name}", countryName) {
+            //header("Authorization", "Bearer ${anyString()}")
+            contentType = MediaType.APPLICATION_JSON
+        }.andReturn()*/
+
         // expect
-        mockMvc?.perform(
-            MockMvcRequestBuilders.get("/api/v1/countries/name/${countryName}")
-        )
-            ?.andExpect(MockMvcResultMatchers.status().isOk)
+        mockMvc!!.get("/api/v1/countries/name/{name}", countryName) {
+            contentType = MediaType.APPLICATION_JSON
+        }
+            .andExpect {
+                status { isOk() }
+                //MockMvcResultMatchers.content().json(objectMapper!!.writeValueAsString(POKEMON_REST))
+            }
 
     }
 }
