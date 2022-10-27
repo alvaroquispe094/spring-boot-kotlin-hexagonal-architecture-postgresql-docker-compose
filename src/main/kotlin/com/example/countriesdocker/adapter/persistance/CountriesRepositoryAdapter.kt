@@ -2,11 +2,9 @@ package com.example.countriesdocker.adapter.persistance
 
 import com.example.countriesdocker.adapter.persistance.mapper.CountriesMapper
 import com.example.countriesdocker.adapter.persistance.repository.SpringDataCountriesRepository
-import com.example.countriesdocker.application.port.out.CountriesRepositoryPort
-import com.example.countriesdocker.application.port.out.CountryByIdRepositoryPort
-import com.example.countriesdocker.application.port.out.CountryByNameRepositoryPort
-import com.example.countriesdocker.application.port.out.CreateCountryRepositoryPort
+import com.example.countriesdocker.application.port.out.*
 import com.example.countriesdocker.config.MessageError
+import com.example.countriesdocker.config.exception.BadArgumentException
 import com.example.countriesdocker.config.exception.DaoException
 import com.example.countriesdocker.config.exception.ResourceNotFoundException
 import com.example.countriesdocker.domain.Countries
@@ -16,7 +14,7 @@ import org.springframework.stereotype.Repository
 @Repository
 class CountriesRepositoryAdapter(
     private val repository: SpringDataCountriesRepository
-): CountriesRepositoryPort, CountryByIdRepositoryPort, CreateCountryRepositoryPort, CountryByNameRepositoryPort {
+): CountriesRepositoryPort, CountryByIdRepositoryPort, CreateCountryRepositoryPort, CountryByNameRepositoryPort, DeleteRepositoryPort {
 
     override fun findAllCountries(): List<Countries> {
         return repository.findAll().map { it.toCountriesDomain() }
@@ -59,6 +57,19 @@ class CountriesRepositoryAdapter(
     }catch (e: ResourceNotFoundException){
         logger.error("Error al acceder al recurso con name : $name")
         throw ResourceNotFoundException(MessageError.RESOURCE_NOT_FOUND.errorCode, "No se encontro el country con name = $name")
+    }
+
+    override fun deleteCountry(countryId: Long) = try {
+        countryId
+            .log { info("CountryWebService delete Request - id = {}", countryId) }
+            .let { repository.deleteById(it) }
+            .log {  info("CountryWebService delete Response")}
+    }catch (e: ResourceNotFoundException){
+        logger.error("Error al acceder al recurso con id : $countryId")
+        throw ResourceNotFoundException(MessageError.RESOURCE_NOT_FOUND.errorCode, "No se encontro el country con id = $countryId")
+    }catch (e: Exception){
+        logger.error("Error al acceder al recurso, el id es null")
+        throw BadArgumentException(MessageError.ILLEGAL_ARGUMENT.errorCode, "No se pudo encontrar el country debido a que el id es null")
     }
 
     companion object: CompanionLogger()

@@ -1,10 +1,7 @@
 package com.example.countriesdocker.adapter.controller
 
 import com.example.countriesdocker.adapter.controller.model.CountriesRest
-import com.example.countriesdocker.application.port.`in`.CreateCountryInPort
-import com.example.countriesdocker.application.port.`in`.FindAllCountriesInPort
-import com.example.countriesdocker.application.port.`in`.FindCountryByIdInPort
-import com.example.countriesdocker.application.port.`in`.FindCountryByNameInPort
+import com.example.countriesdocker.application.port.`in`.*
 import com.example.countriesdocker.shared.CompanionLogger
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -18,6 +15,7 @@ class CountriesController(
     private val findCountryByIdInPort: FindCountryByIdInPort,
     private val createCountryInPort: CreateCountryInPort,
     private val findCountryByNameInPort: FindCountryByNameInPort,
+    private val deleteCountryInPort: DeleteCountryInPort,
 ) {
 
     @GetMapping("/countries")
@@ -53,6 +51,14 @@ class CountriesController(
         .let { p -> CountriesRest.from(p) }
         .let { ResponseEntity.status(HttpStatus.OK).body(it) }
         .log { info("Fin a llamada al controller /api/v1/countries/name/{}", it) }
+
+    @DeleteMapping("/countries/{id}")
+    fun delete(@PathVariable("id") id: Long): ResponseEntity<HttpStatus> = id
+        .log { info("Llamada delete al controller /api/v1/countries/id/{}", it) }
+        .let { deleteCountryInPort.execute(it) }
+        //.let { p -> CountriesRest.from(p) }
+        .let { ResponseEntity<HttpStatus>( HttpStatus.OK) }
+        .log { info("Fin a llamada al controller /api/v1/countries/id/{}", it) }
 
     companion object: CompanionLogger()
 

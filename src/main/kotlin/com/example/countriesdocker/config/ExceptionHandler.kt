@@ -2,9 +2,7 @@ package com.example.countriesdocker.config
 
 import com.example.countriesdocker.adapter.persistance.exception.RestClientGenericException
 import com.example.countriesdocker.adapter.persistance.exception.TimeoutRestClientException
-import com.example.countriesdocker.config.exception.DaoException
-import com.example.countriesdocker.config.exception.GenericException
-import com.example.countriesdocker.config.exception.ResourceNotFoundException
+import com.example.countriesdocker.config.exception.*
 import com.example.countriesdocker.extensions.toIsoString
 import com.example.countriesdocker.extensions.toSnakeCase
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -13,6 +11,7 @@ import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.http.converter.HttpMessageNotReadableException
+import org.springframework.web.bind.MethodArgumentNotValidException
 import org.springframework.web.bind.annotation.ControllerAdvice
 import org.springframework.web.bind.annotation.ExceptionHandler
 import java.time.LocalDateTime
@@ -53,6 +52,12 @@ class ExceptionHandler(
         return buildResponseError(HttpStatus.BAD_REQUEST, ex, ex.errorCode)
     }
 
+    @ExceptionHandler(BadArgumentException::class)
+    fun handle(ex: BadArgumentException): ResponseEntity<ApiErrorResponse> {
+        log.error(HttpStatus.BAD_REQUEST.reasonPhrase, ex)
+        return buildResponseError(HttpStatus.BAD_REQUEST, ex, ex.errorCode)
+    }
+
     @ExceptionHandler(RestClientGenericException::class)
     fun handle(ex: RestClientGenericException): ResponseEntity<ApiErrorResponse> {
         log.error(HttpStatus.INTERNAL_SERVER_ERROR.reasonPhrase, ex)
@@ -65,7 +70,7 @@ class ExceptionHandler(
         return buildResponseError(HttpStatus.GATEWAY_TIMEOUT, ex, ex.errorCode)
     }
 
-   /* @ExceptionHandler(MethodArgumentNotValidException::class)
+    @ExceptionHandler(MethodArgumentNotValidException::class)
     fun handle(ex: MethodArgumentNotValidException) = ex
             .also { log.error(HttpStatus.BAD_REQUEST.reasonPhrase, it) }
             .let {
@@ -74,7 +79,7 @@ class ExceptionHandler(
                             "${error.field.toSnakeCase()} is invalid: ${error.defaultMessage}"
                         }
                 buildResponseError(HttpStatus.BAD_REQUEST, it, MessageError.BAD_REQUEST.errorCode, message)
-            }*/
+            }
 
     @ExceptionHandler(HttpMessageNotReadableException::class)
     fun handle(ex: HttpMessageNotReadableException) = ex
