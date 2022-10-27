@@ -21,7 +21,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers
 
 @DisplayName("CountriesController Adapter Test")
 @AutoConfigureMockMvc
-@AutoConfigureWebClient
 @SpringBootTest
 class CountriesControllerTest {
 
