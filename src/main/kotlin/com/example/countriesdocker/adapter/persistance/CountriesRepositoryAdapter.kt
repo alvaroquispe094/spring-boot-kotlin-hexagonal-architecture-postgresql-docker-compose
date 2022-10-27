@@ -69,7 +69,7 @@ class CountriesRepositoryAdapter(
         throw ResourceNotFoundException(MessageError.RESOURCE_NOT_FOUND.errorCode, "No se encontro el country con id = $countryId")
     }catch (e: Exception){
         logger.error("Error al acceder al recurso, el id es null")
-        throw BadArgumentException(MessageError.ILLEGAL_ARGUMENT.errorCode, "No se pudo encontrar el country debido a que el id es null")
+        throw BadArgumentException(MessageError.ILLEGAL_ARGUMENT.errorCode, "No se pudo encontrar el country debido a que el id no existe")
     }
 
     companion object: CompanionLogger()
