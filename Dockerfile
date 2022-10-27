@@ -9,7 +9,7 @@ RUN gradle build
 #
 # Package stage
 #
-FROM openjdk:11.0.4-jre-slim as builder
+FROM adoptopenjdk/openjdk11:alpine-jre as builder
 WORKDIR /root
 COPY --from=build /root/build/libs/*.jar root/app.jar
 EXPOSE 80
