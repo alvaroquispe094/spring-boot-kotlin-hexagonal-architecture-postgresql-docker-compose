@@ -1,3 +1,4 @@
+/*
 package com.example.countriesdocker.adapter.controller
 
 import com.example.countriesdocker.application.port.`in`.FindCountryByNameInPort
@@ -25,11 +26,15 @@ class CountriesControllerTest (
     //@Autowired private val objectMapper: ObjectMapper
 ) {
 
-    /*@Autowired
-    private val mockMvc: MockMvc? = null*/
+    */
+/*@Autowired
+    private val mockMvc: MockMvc? = null*//*
 
-    /*@Autowired
-    private val objectMapper: ObjectMapper? = null*/
+
+    */
+/*@Autowired
+    private val objectMapper: ObjectMapper? = null*//*
+
 
     @MockBean
     private val findCountryByNameInPort: FindCountryByNameInPort? = null
@@ -65,4 +70,4 @@ class CountriesControllerTest (
 
     }
 
-}
+}*/
