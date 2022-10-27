@@ -55,5 +55,4 @@ class CountriesControllerTest {
             ?.andExpect(MockMvcResultMatchers.status().isOk)
 
     }
-
 }
