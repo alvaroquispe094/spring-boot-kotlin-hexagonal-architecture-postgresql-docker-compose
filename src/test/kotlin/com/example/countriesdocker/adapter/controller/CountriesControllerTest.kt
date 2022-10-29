@@ -24,7 +24,6 @@ import org.springframework.test.web.servlet.MockMvc
 import org.springframework.test.web.servlet.get
 import org.springframework.test.web.servlet.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers
-import java.util.*
 
 @DisplayName("CountriesController Adapter Test")
 @Import(AppTestConfig::class)
@@ -54,11 +53,6 @@ class CountriesControllerTest {
         // when
         `when`(findCountryByNameInPort!!.execute(anyString()))
             .thenReturn(COUNTRIES_DOMAIN)
-
-       /* val result = mockMvc!!.get("/api/v1/countries/name/{name}", countryName) {
-            //header("Authorization", "Bearer ${anyString()}")
-            contentType = MediaType.APPLICATION_JSON
-        }.andReturn()*/
 
         // expect
         mockMvc!!.get("/api/v1/countries/name/{name}", countryName) {
@@ -114,7 +108,7 @@ class CountriesControllerTest {
             content = request
         }.andExpect {
             status { isCreated() }
-            MockMvcResultMatchers.content().json(objectMapper!!.writeValueAsString(COUNTRIES_REST))
+            MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(COUNTRIES_REST))
         }
     }
 
