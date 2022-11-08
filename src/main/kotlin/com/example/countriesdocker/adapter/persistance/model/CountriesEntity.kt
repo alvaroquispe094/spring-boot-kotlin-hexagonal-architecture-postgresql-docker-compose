@@ -17,7 +17,7 @@ data class CountriesEntity(
     val subregion: String,
     val region: String,
     val population: Int,
-    val area: Float,
+    val area: Double,
     val currency: String?,
     val language: String,
     val flag: String,

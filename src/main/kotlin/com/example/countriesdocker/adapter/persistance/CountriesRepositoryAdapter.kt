@@ -13,7 +13,7 @@ import org.springframework.stereotype.Repository
 
 @Repository
 class CountriesRepositoryAdapter(
-    private val repository: SpringDataCountriesRepository
+    val repository: SpringDataCountriesRepository
 ): CountriesRepositoryPort, CountryByIdRepositoryPort, CreateCountryRepositoryPort, CountryByNameRepositoryPort, DeleteRepositoryPort {
 
     override fun findAllCountries(): List<Countries> {

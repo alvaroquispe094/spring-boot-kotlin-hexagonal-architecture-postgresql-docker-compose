@@ -38,6 +38,7 @@ dependencies {
 
 	// Testing
 	//testImplementation("org.springframework.boot:spring-boot-starter-test")
+	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
 	}
@@ -47,6 +48,8 @@ dependencies {
 	testImplementation("com.tngtech.archunit:archunit-junit5:1.0.0")
 
 	testImplementation("org.mockito.kotlin:mockito-kotlin:4.0.0")
+	//testImplementation("org.testcontainers:junit-jupiter")
+	testImplementation("io.kotest:kotest-assertions-core-jvm:5.5.3")
 }
 
 

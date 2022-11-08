@@ -11,7 +11,7 @@ data class CountriesRest(
     @get:Valid val subregion: String,
     @get:Valid val region: String,
     @get:Valid val population: Int,
-    @get:Valid val area: Float,
+    @get:Valid val area: Double,
     @get:Valid val currency: String?,
     @get:Valid val language: String,
     @get:Valid val flag: String,
