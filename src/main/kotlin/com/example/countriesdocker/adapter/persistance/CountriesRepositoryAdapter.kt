@@ -1,6 +1,7 @@
 package com.example.countriesdocker.adapter.persistance
 
 import com.example.countriesdocker.adapter.persistance.mapper.CountriesMapper
+import com.example.countriesdocker.adapter.persistance.model.CountriesEntity
 import com.example.countriesdocker.adapter.persistance.repository.SpringDataCountriesRepository
 import com.example.countriesdocker.application.port.out.*
 import com.example.countriesdocker.config.MessageError
@@ -8,13 +9,14 @@ import com.example.countriesdocker.config.exception.BadArgumentException
 import com.example.countriesdocker.config.exception.DaoException
 import com.example.countriesdocker.config.exception.ResourceNotFoundException
 import com.example.countriesdocker.domain.Countries
+import com.example.countriesdocker.domain.CountriesSearchFilter
 import com.example.countriesdocker.shared.CompanionLogger
 import org.springframework.stereotype.Repository
 
 @Repository
 class CountriesRepositoryAdapter(
     val repository: SpringDataCountriesRepository
-): CountriesRepositoryPort, CountryByIdRepositoryPort, CreateCountryRepositoryPort, CountryByNameRepositoryPort, DeleteRepositoryPort {
+): CountriesRepositoryPort, CountryByIdRepositoryPort, CreateCountryRepositoryPort, CountryByNameRepositoryPort, DeleteRepositoryPort, SearchFilterCountryRepositoryPort {
 
     override fun findAllCountries(): List<Countries> {
         return repository.findAll().map { it.toCountriesDomain() }
@@ -70,6 +72,21 @@ class CountriesRepositoryAdapter(
     }catch (e: Exception){
         logger.error("Error al acceder al recurso, el id es null")
         throw BadArgumentException(MessageError.ILLEGAL_ARGUMENT.errorCode, "No se pudo encontrar el country debido a que el id no existe")
+    }
+
+    override fun searchCountry(searchFilter: CountriesSearchFilter): List<Countries> {
+        val countries: List<CountriesEntity?> =  repository.searchCountriesByFilters(
+            searchFilter.name,
+            searchFilter.subregion,
+            searchFilter.region,
+            searchFilter.populationDesde,
+            searchFilter.populationHasta,
+            searchFilter.areaDesde,
+            searchFilter.areaHasta,
+            searchFilter.currency,
+            searchFilter.language
+        )
+        return countries.map { it?.toCountriesDomain()!! }
     }
 
     companion object: CompanionLogger()

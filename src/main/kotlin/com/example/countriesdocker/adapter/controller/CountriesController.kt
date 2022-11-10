@@ -1,5 +1,6 @@
 package com.example.countriesdocker.adapter.controller
 
+import com.example.countriesdocker.adapter.controller.model.CountriesSearchFilterRest
 import com.example.countriesdocker.adapter.controller.model.CountriesRest
 import com.example.countriesdocker.application.port.`in`.*
 import com.example.countriesdocker.shared.CompanionLogger
@@ -16,6 +17,7 @@ class CountriesController(
     private val createCountryInPort: CreateCountryInPort,
     private val findCountryByNameInPort: FindCountryByNameInPort,
     private val deleteCountryInPort: DeleteCountryInPort,
+    private val searchFilterCountryInPort: SearchFilterCountryInPort,
 ) {
 
     @GetMapping("/countries")
@@ -59,6 +61,15 @@ class CountriesController(
         //.let { p -> CountriesRest.from(p) }
         .let { ResponseEntity<HttpStatus>( HttpStatus.OK) }
         .log { info("Fin a llamada al controller /api/v1/countries/id/{}", it) }
+
+    @PostMapping("/countries/search")
+    fun search(@RequestBody req: CountriesSearchFilterRest): ResponseEntity< List<CountriesRest> > = req
+        .log { info("Llamada a controller searching de countries by filters") }
+        .let { req.toDomain() }
+        .let { searchFilterCountryInPort.execute(it) }
+        .map { CountriesRest.from(it) }
+        .let { ResponseEntity.status(HttpStatus.OK).body(it) }
+        .log { info("Fin a llamada al controller /api/v1/countries/search/{}", it) }
 
     companion object: CompanionLogger()
 
