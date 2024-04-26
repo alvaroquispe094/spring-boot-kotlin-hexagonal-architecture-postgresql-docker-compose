@@ -11,9 +11,9 @@ import com.example.countriesdocker.config.exception.ResourceNotFoundException
 import com.example.countriesdocker.domain.Countries
 import com.example.countriesdocker.domain.CountriesSearchFilter
 import com.example.countriesdocker.shared.CompanionLogger
-import org.springframework.stereotype.Repository
+import org.springframework.stereotype.Component
 
-@Repository
+@Component
 class CountriesRepositoryAdapter(
     val repository: SpringDataCountriesRepository
 ): CountriesRepositoryPort, CountryByIdRepositoryPort, CreateCountryRepositoryPort, CountryByNameRepositoryPort, DeleteRepositoryPort, SearchFilterCountryRepositoryPort {

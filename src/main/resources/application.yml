@@ -1,14 +1,15 @@
+#server:
+#  port : 8081
 # Spring configurations
 spring:
-  profiles:
-    active: "´prod"
   main:
     allow-bean-definition-overriding: false
   # Database
   datasource:
-    url: ${DATABASE_URL}
-    username: ${DATABASE_USERNAME}
-    password: ${DATABASE_PASSWORD}
+    url: jdbc:postgresql://localhost:5432/countries-docker?useSSL=false
+    username: postgres
+    password: postgres
+
   # JPA properties
   jpa:
     hibernate:
@@ -16,4 +17,14 @@ spring:
     show-sql: false
     generate-ddl: true
     database: postgresql
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+  kafka:
+    bootstrap-servers: localhost:29092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      group-id: myGroup
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
+

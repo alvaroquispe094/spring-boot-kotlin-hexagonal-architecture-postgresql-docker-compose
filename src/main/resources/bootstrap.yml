@@ -1,4 +1,0 @@
-#spring:
-#  application.name: countries-docker
-#
-#rest.client.default.timeout: 10000
