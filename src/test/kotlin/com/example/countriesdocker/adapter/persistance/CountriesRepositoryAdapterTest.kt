@@ -1,6 +1,5 @@
 package com.example.countriesdocker.adapter.persistance
 
-import com.example.countriesdocker.adapter.controller.CountriesControllerTest
 import com.example.countriesdocker.config.MessageError
 import com.example.countriesdocker.config.exception.ResourceNotFoundException
 import com.example.countriesdocker.domain.Countries
@@ -10,8 +9,6 @@ import org.hamcrest.Matchers
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import org.mockito.ArgumentMatchers
-import org.mockito.ArgumentMatchers.any
-import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
@@ -69,9 +66,9 @@ class CountriesRepositoryAdapterTest{
             .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString(MessageError.RESOURCE_NOT_FOUND.defaultMessage)))
         */
         val countryNames = "Australia"
-        val URL: String = "/api/v1/countries/name/${countryNames}"
+        val url = "/api/v1/countries/name/${countryNames}"
 
-        Mockito.`when`(client?.findCountryByName(ArgumentMatchers.anyString()))
+        `when`(client?.findCountryByName(ArgumentMatchers.anyString()))
             .thenThrow(
                 ResourceNotFoundException(
                     MessageError.RESOURCE_NOT_FOUND.errorCode,
@@ -81,7 +78,7 @@ class CountriesRepositoryAdapterTest{
 
         //val thrown2 = Assertions.catchThrowable {
             mockMvc!!.perform(
-                MockMvcRequestBuilders.get(URL)
+                MockMvcRequestBuilders.get(url)
                     .contentType(MediaType.APPLICATION_JSON))
         //}
                 .andExpect(MockMvcResultMatchers.status().isNotFound)
@@ -115,8 +112,7 @@ class CountriesRepositoryAdapterTest{
         val countryNames = "Australia"
         val mockedResponse: Countries = mockedResponse
         val expectedResponses: Countries = expectedDomainForMockedResponse
-        val detailsStrings = objectMapper!!.writeValueAsString(mockedResponse)
-        val URL: String = "/api/v1/countries/name/${countryNames}"
+        val url = "/api/v1/countries/name/${countryNames}"
 
         // when
         `when`(client?.findCountryByName(ArgumentMatchers.anyString()))
@@ -124,7 +120,7 @@ class CountriesRepositoryAdapterTest{
 
         // expect
         mockMvc!!.perform(
-            MockMvcRequestBuilders.get(URL)
+            MockMvcRequestBuilders.get(url)
                 .contentType(MediaType.APPLICATION_JSON)
         )
             .andExpect(MockMvcResultMatchers.status().isOk)
@@ -149,12 +145,10 @@ class CountriesRepositoryAdapterTest{
     fun getCountriesByFiltersNormalCase() {
 
         // given
-        val countryNames = "Australia"
-        val mockedResponse: List<Countries> = mockedListResponse
+        //val mockedResponse: List<Countries> = mockedListResponse
         val expectedResponses: List<Countries> = expectedDomainForMockedListResponse
         val mockedRequest:CountriesSearchFilter = mockedRequest
-        val detailsStrings = objectMapper!!.writeValueAsString(mockedResponse)
-        val URL: String = "/api/v1/countries/search"
+        val url = "/api/v1/countries/search"
 
         // when
         `when`(client?.searchCountry(mockedRequest))
@@ -162,12 +156,12 @@ class CountriesRepositoryAdapterTest{
 
         // expect
         mockMvc!!.perform(
-            MockMvcRequestBuilders.post(URL)
+            MockMvcRequestBuilders.post(url)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper!!.writeValueAsString(mockedRequest))
         )
             .andExpect(MockMvcResultMatchers.status().isOk)
-            .andExpect(MockMvcResultMatchers.content().json(objectMapper!!.writeValueAsString(expectedResponses)))
+            .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(expectedResponses)))
             .andExpect(MockMvcResultMatchers.jsonPath("$[*].language", Matchers.`is`(expectedResponses.map { it.language })))
 
     }

@@ -15,7 +15,6 @@ import org.junit.jupiter.api.Test
 import org.mockito.ArgumentMatchers.anyString
 import org.mockito.Mockito.`when`
 import org.mockito.kotlin.any
-import org.mockito.kotlin.anyArray
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
 import org.springframework.boot.test.context.SpringBootTest
@@ -52,7 +51,7 @@ class CountriesControllerTest {
 
         // given
         val countryName = "Australia"
-        val URL: String = "/api/v1/countries/name/${countryName}"
+        val url = "/api/v1/countries/name/${countryName}"
 
         // when
         `when`(findCountryByNameInPort!!.execute(anyString()))
@@ -60,7 +59,7 @@ class CountriesControllerTest {
 
         // expect
         mockMvc!!.perform(
-            MockMvcRequestBuilders.get(URL)
+            MockMvcRequestBuilders.get(url)
                 .contentType(MediaType.APPLICATION_JSON)
         )
             .andExpect(MockMvcResultMatchers.status().isOk)
@@ -73,7 +72,7 @@ class CountriesControllerTest {
 
         // given
         val countryName = "Australia"
-        val URL: String = "/api/v1/countries/name/${countryName}"
+        val URL = "/api/v1/countries/name/${countryName}"
 
         // when
         `when`(findCountryByNameInPort!!.execute(anyString()))
@@ -99,7 +98,7 @@ class CountriesControllerTest {
 
         // given
         val request = objectMapper!!.writeValueAsString(COUNTRIES_REST)
-        val URL: String = "/api/v1/countries"
+        val URL = "/api/v1/countries"
 
         // when
         `when`(createCountryInPort!!.execute(any()))
@@ -121,7 +120,7 @@ class CountriesControllerTest {
 
         // given
         val request = objectMapper!!.writeValueAsString(REQUEST_FILTERS_DOMAIN)
-        val URL: String = "/api/v1/countries/search"
+        val URL = "/api/v1/countries/search"
 
 
         // when
@@ -135,7 +134,7 @@ class CountriesControllerTest {
                 .content(request)
         )
             .andExpect(MockMvcResultMatchers.status().isOk)
-            .andExpect(MockMvcResultMatchers.content().json(objectMapper!!.writeValueAsString(LIST_COUNTRIES_REST)))
+            .andExpect(MockMvcResultMatchers.content().json(objectMapper.writeValueAsString(LIST_COUNTRIES_REST)))
     }
 
     companion object {

@@ -3,6 +3,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
 	id("org.springframework.boot") version "2.5.6"
 	id("io.spring.dependency-management") version "1.0.14.RELEASE"
+	id("jacoco")
+	id("org.sonarqube") version "4.2.1.3168"
 	kotlin("jvm") version "1.6.21"
 	kotlin("plugin.spring") version "1.6.21"
 	kotlin("plugin.jpa") version "1.6.21"
@@ -35,6 +37,7 @@ dependencies {
 	// Swagger
 	implementation("io.springfox:springfox-boot-starter:3.0.0")
 
+	// Logstash
 	implementation("net.logstash.logback:logstash-logback-encoder:7.2")
 
 	// Testing
@@ -73,6 +76,57 @@ tasks.withType<Test> {
 
 tasks.withType<JacocoReport> {
 	reports {
-		xml.required.set(true)
+		html.required.set(true)
+
 	}
+}
+
+jacoco {
+	toolVersion = "0.8.2"
+}
+
+tasks.jacocoTestReport {
+	dependsOn(tasks.test) // Asegura que los tests se ejecuten antes del reporte
+
+	reports {
+		//xml.required.set(true) // Para la integración con otras herramientas
+		html.required.set(true) // Para generar un reporte HTML
+	}
+}
+
+tasks.jacocoTestCoverageVerification {
+	dependsOn(tasks.jacocoTestReport) // Verificación después del reporte
+	violationRules {
+		rule {
+			limit {
+				counter = "INSTRUCTION" // Contar líneas de código
+				value = "COVEREDRATIO"
+				minimum = "0.40".toBigDecimal() // Umbral del 80% de cobertura
+			}
+		}
+		/*rule {
+			enabled = true
+			element = "CLASS"
+
+			limit {
+				counter = "BRANCH" // Cobertura de ramas (branch coverage)
+				value = "COVEREDRATIO"
+				minimum = "0.70".toBigDecimal() // Umbral del 70% de cobertura de ramas
+			}
+		}*/
+	}
+}
+
+tasks.check {
+	dependsOn(tasks.jacocoTestCoverageVerification) // Falla si no se cumple el umbral de cobertura
+}
+
+tasks.build {
+	dependsOn(tasks.test) // Ejecutar las pruebas antes del build
+	dependsOn(tasks.jacocoTestReport) // Generar el reporte como parte del build
+	dependsOn(tasks.jacocoTestCoverageVerification) // Verificar la cobertura como parte del build
+}
+
+tasks.test {
+	finalizedBy(tasks.jacocoTestCoverageVerification) // Ejecuta el reporte después de los tests.
 }
